@@ -64,6 +64,11 @@ h2{font-size:clamp(22px,3vw,28px);line-height:1.4;margin-bottom:24px;border-left
 .toc li{background:var(--surface);border-radius:10px;padding:14px 16px;font-size:15px;font-weight:700}
 .toc li span{display:block;font-size:13px;font-weight:400;color:var(--sub)}
 .fit{margin-top:20px;font-size:15px;color:var(--sub)}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.plan{border:1px solid var(--bborder);border-top:4px solid var(--blue);border-radius:12px;padding:18px}
+.plan .tag{font-size:12px;font-weight:800;color:var(--blue);letter-spacing:.08em}
+.plan b{display:block;font-size:18px;margin:2px 0 6px}
+.plan p{font-size:14px;color:var(--sub)}
 
 /* フォーム */
 .form-sec{background:var(--surface);border-top:1px solid var(--line)}
@@ -104,7 +109,7 @@ footer{padding:28px 0 40px;font-size:12.5px;color:var(--mute);text-align:center}
   .hero .wrap{grid-template-columns:1fr;gap:20px}
   .hero .art{width:140px;order:-1;border-radius:12px}
   .stats{grid-template-columns:1fr 1fr}
-  .hosts,.toc{grid-template-columns:1fr}
+  .hosts,.toc,.plans{grid-template-columns:1fr}
   section{padding:40px 0}
   .form-card{padding:22px 16px;border-radius:12px}
   .btn{width:100%;text-align:center}
@@ -138,11 +143,11 @@ footer{padding:28px 0 40px;font-size:12.5px;color:var(--mute);text-align:center}
     <h2>数字で見る番組</h2>
     <div class="stats">
       <div class="stat"><div class="n">406<small>万回</small></div><div class="l">10か月の累計再生・視聴数（Podcast＋YouTube）</div></div>
-      <div class="stat"><div class="n">2.4<small>万回</small></div><div class="l">新しい回の公開後7日間の再生数（直近10話平均）</div></div>
+      <div class="stat"><div class="n">5.4<small>万回</small></div><div class="l">1話あたりの視聴回数（Podcast 2.4万＋YouTube 3.0万。直近10話の中央値）</div></div>
       <div class="stat"><div class="n">65<small>%</small></div><div class="l">35〜59歳のリスナー比率（Spotify）</div></div>
       <div class="stat"><div class="n">10<small>倍</small></div><div class="l">朝5時半スタートの番組ランイベントの応募倍率</div></div>
     </div>
-    <p class="note">※ 2026年11月初旬時点。Podcastは1/4〜11/5の再生・DL数、YouTubeは3/17〜11/4の視聴回数（ショート込み）の単純合計。年齢構成はSpotify 2026.10.8〜11.6。</p>
+    <p class="note">※ 2026年11月初旬時点。累計はPodcast（1/4〜11/5の再生・DL数）とYouTube（3/17〜11/4の視聴回数、ショート込み）の単純合計。1話あたりは8/30〜11/1公開の10話で、Podcastは公開後7日間、YouTubeは本編の公開〜11/4の累計。年齢構成はSpotify 2026.10.8〜11.6。</p>
   </div>
 </section>
 
@@ -159,13 +164,25 @@ footer{padding:28px 0 40px;font-size:12.5px;color:var(--mute);text-align:center}
 
 <section style="padding-top:0">
   <div class="wrap">
+    <h2>3つのタイアッププラン</h2>
+    <div class="plans">
+      <div class="plan"><div class="tag">PLAN A</div><b>通常タイアップ</b><p>番組の1話で、御社の商品・サービスを語ります。まず番組の文脈で商品を知ってもらいたい企業様に。</p></div>
+      <div class="plan"><div class="tag">PLAN B</div><b>イベントタイアップ</b><p>公開収録とサンプリングで、番組のファンに商品を直接手に取ってもらいます。</p></div>
+      <div class="plan"><div class="tag">PLAN C</div><b>プレミアムタイアップ</b><p>目的から、話数・イベント・期間を自由に設計。ブランドの取り組みとして番組と長く組みたい企業様に。</p></div>
+    </div>
+    <p class="fit">1回の収録から、Podcast本編・YouTube本編・ショート動画・記事・Xまで展開します。<b>企画からレポートまで、窓口はアル1社です。</b>料金と対応内容は資料に掲載しています。</p>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
     <h2>資料に載っていること</h2>
     <ul class="toc">
-      <li>スポンサープランと料金<span>通常・イベント・プレミアムの3プラン</span></li>
-      <li>視聴実績の推移<span>Podcast・YouTubeの月次と各話の数字</span></li>
+      <li>プランごとの料金と対応内容<span>通常・イベント・プレミアムの3プラン</span></li>
+      <li>視聴実績<span>累計の推移と、直近の1話あたりの数字</span></li>
       <li>リスナー属性<span>年齢・性別と、どんな人が聴いているか</span></li>
+      <li>想定リーチ<span>通常タイアップ1話で延べ約6.6万回</span></li>
       <li>番組内での見せ方<span>PR表記と、売り込み型にしない進め方</span></li>
-      <li>1話あたりの想定接触数<span>Podcast・YouTube・ショート・記事</span></li>
       <li>お申し込みから配信まで<span>通常タイアップは約6週間</span></li>
     </ul>
     <p class="fit">金融・資産形成、健康・睡眠・食、AI・SaaS、ガジェット、教育、継続利用型のD2Cなど、<b>理解・比較してから選ばれる商品</b>と相性のよい番組です。</p>
@@ -226,7 +243,7 @@ footer{padding:28px 0 40px;font-size:12.5px;color:var(--mute);text-align:center}
         <p>媒体資料は下のボタンから開けます。<br>同じ内容を、ご入力のメールアドレスにもお送りしました。</p>
         <a class="btn" id="pdf-link" href="#" target="_blank" rel="noopener">媒体資料（PDF）を開く</a>
         <a class="btn ghost" id="booking-link" href="#" target="_blank" rel="noopener">30分のオンライン相談を予約する</a>
-        <p class="small">御社の商品にあわせた企画のラフ案を、無料でご用意します。</p>
+        <p class="small">伝えたいことと、ご検討中のプランをお聞かせください。<br>御社の商品にあわせた番組企画のラフ案を3つ、無料でご用意します。</p>
       </div>
 
     </div>
