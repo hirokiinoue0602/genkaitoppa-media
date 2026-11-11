@@ -63,6 +63,21 @@ h2{font-size:clamp(22px,3vw,28px);line-height:1.4;margin-bottom:24px;border-left
 .plan b{display:block;font-size:18px;margin:2px 0 6px}
 .plan p{font-size:14px;color:var(--sub)}
 
+/* 資料のチラ見せ */
+.peek{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 20px 16px;margin:0 -20px;-webkit-overflow-scrolling:touch}
+.peek figure{flex:0 0 min(78%,440px);scroll-snap-align:center;position:relative}
+.peek img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:10px;border:1px solid var(--line);box-shadow:0 6px 18px rgba(10,58,106,.12);cursor:zoom-in;background:#fff}
+.peek figcaption{font-size:13px;color:var(--mute);margin-top:8px}
+.peek .locked img{filter:blur(7px);cursor:default;transform:scale(1.0)}
+.peek .locked .veil{position:absolute;inset:0 0 auto 0;aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:rgba(255,255,255,.55);border-radius:10px;text-align:center;padding:12px}
+.peek .locked .veil b{font-size:16px;color:var(--deep)}
+.peek .locked .veil a{font-size:14px;font-weight:700;color:#fff;background:var(--blue);text-decoration:none;padding:9px 16px;border-radius:999px}
+.peek-hint{font-size:13px;color:var(--mute)}
+dialog.zoom{border:0;padding:0;background:transparent;max-width:min(96vw,1280px);margin:auto}
+dialog.zoom::backdrop{background:rgba(15,23,42,.8)}
+dialog.zoom img{width:100%;border-radius:8px}
+dialog.zoom button{position:absolute;top:8px;right:8px;width:36px;height:36px;border-radius:50%;border:0;background:#fff;font-size:20px;cursor:pointer}
+
 /* フォーム */
 .form-sec{background:var(--surface);border-top:1px solid var(--line)}
 .form-card{max-width:640px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:16px;padding:32px}
@@ -158,6 +173,24 @@ footer{padding:28px 0 40px;font-size:12.5px;color:var(--mute);text-align:center}
 
 <section style="padding-top:0">
   <div class="wrap">
+    <h2>媒体資料を、少しだけお見せします</h2>
+    <div class="peek">
+      <figure><img src="img/slides/p-01.jpg" alt="媒体資料 表紙" width="1280" height="720" loading="lazy"><figcaption>1 / 22　表紙</figcaption></figure>
+      <figure><img src="img/slides/p-02.jpg" alt="限界突破ライフハックとは" width="1280" height="720" loading="lazy"><figcaption>2 / 22　限界突破ライフハックとは</figcaption></figure>
+      <figure><img src="img/slides/p-03.jpg" alt="限界突破ライフハックの魅力" width="1280" height="720" loading="lazy"><figcaption>3 / 22　番組の魅力</figcaption></figure>
+      <figure><img src="img/slides/p-04.jpg" alt="なぜPodcastなのか" width="1280" height="720" loading="lazy"><figcaption>4 / 22　なぜPodcastなのか</figcaption></figure>
+      <figure class="locked"><img src="img/slides/p-05.jpg" alt="" width="1280" height="720" loading="lazy" aria-hidden="true">
+        <div class="veil"><b>続きの18ページは資料で</b><span class="peek-hint">視聴実績・リスナー属性・プランと料金</span><a href="#form">資料を受け取る</a></div>
+        <figcaption>5〜22 / 22</figcaption></figure>
+    </div>
+    <p class="peek-hint">← 横にスクロールできます。タップで拡大します。</p>
+  </div>
+</section>
+
+<dialog class="zoom" id="zoom"><button type="button" aria-label="閉じる">×</button><img alt=""></dialog>
+
+<section style="padding-top:0">
+  <div class="wrap">
     <h2>資料に載っていること</h2>
     <ul class="toc">
       <li>プランごとの料金と対応内容<span>通常・イベント・プレミアムの3プラン</span></li>
@@ -222,7 +255,7 @@ footer{padding:28px 0 40px;font-size:12.5px;color:var(--mute);text-align:center}
       <div class="done" id="done" aria-live="polite">
         <div class="check">✓</div>
         <h2>ありがとうございます</h2>
-        <p>媒体資料は下のボタンから開けます。<br>同じ内容を、ご入力のメールアドレスにもお送りしました。</p>
+        <p>媒体資料のダウンロードが始まります。<br>始まらない場合は、下のボタンから開いてください。<span id="mail-note"><br>同じ内容を、ご入力のメールアドレスにもお送りしました。</span></p>
         <a class="btn" id="pdf-link" href="#" target="_blank" rel="noopener">媒体資料（PDF）を開く</a>
         <a class="btn ghost" id="booking-link" href="#" target="_blank" rel="noopener">30分のオンライン相談を予約する</a>
         <p class="small">伝えたいことと、ご検討中のプランをお聞かせください。<br>御社の商品にあわせた番組企画のラフ案を3つ、無料でご用意します。</p>
@@ -239,8 +272,9 @@ footer{padding:28px 0 40px;font-size:12.5px;color:var(--mute);text-align:center}
    設定：公開前にここだけ書き換える（詳しくは ../README.md）
    ============================================================ */
 const CONFIG = {
-  GAS_URL:     "",  // GASのWebアプリURL（https://script.google.com/macros/s/.../exec）。空なら送信せずに完了画面を出す（確認用）
-  PDF_URL:     "",  // 媒体資料PDFの共有リンク（Googleドライブ「リンクを知っている全員」）
+  GAS_URL:     "",  // GASのWebアプリURL（https://script.google.com/macros/s/.../exec）。空ならデモ動作：どこにも送らず、PDFをダウンロードさせるだけ
+  PDF_URL:     "",  // 媒体資料PDFの共有リンク（Googleドライブ「リンクを知っている全員」）。空なら同梱の DEMO_PDF を使う
+  DEMO_PDF:    "files/genkaitoppa-mediakit.pdf",
   BOOKING_URL: "",  // 日程予約URL（TimeRex など）。空ならボタンを隠す
   PRIVACY_URL: ""   // 会社のプライバシーポリシーのURL
 };
@@ -252,7 +286,26 @@ const CONFIG = {
 
   // リンクの差し込み
   if (CONFIG.PRIVACY_URL) $("#privacy-link").href = CONFIG.PRIVACY_URL;
-  if (CONFIG.PDF_URL) $("#pdf-link").href = CONFIG.PDF_URL;
+  const PDF_VIEW = CONFIG.PDF_URL || CONFIG.DEMO_PDF;
+  // Googleドライブのリンクはそのままだとプレビューになるのでダウンロード用URLに変える
+  const driveId = (CONFIG.PDF_URL.match(/drive\.google\.com\/file\/d\/([^/?#]+)/) || [])[1];
+  const PDF_DOWNLOAD = driveId ? `https://drive.google.com/uc?export=download&id=${driveId}` : PDF_VIEW;
+  const PDF_NAME = "限界突破ライフハック_媒体資料.pdf";
+  $("#pdf-link").href = PDF_VIEW;
+  if (!CONFIG.GAS_URL) $("#mail-note").style.display = "none";  // デモ動作ではメールを送らない
+
+  function downloadPdf(){
+    const a = document.createElement("a");
+    a.href = PDF_DOWNLOAD; a.download = PDF_NAME; a.rel = "noopener";
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+
+  // チラ見せスライドの拡大表示
+  const zoom = $("#zoom");
+  document.querySelectorAll(".peek figure:not(.locked) img").forEach((img) => {
+    img.addEventListener("click", () => { zoom.querySelector("img").src = img.src; zoom.querySelector("img").alt = img.alt; zoom.showModal(); });
+  });
+  zoom.addEventListener("click", () => zoom.close());
   if (CONFIG.BOOKING_URL) $("#booking-link").href = CONFIG.BOOKING_URL; else $("#booking-link").style.display = "none";
 
   // 流入元（概要欄の ?utm_source=spotify など）を引き継ぐ
@@ -310,9 +363,9 @@ const CONFIG = {
     for (const [k, v] of Object.entries(utm)) body.set(k, v);
 
     if (!CONFIG.GAS_URL) {
-      // ローカルの確認時だけ、送信せずに完了画面を出す。公開先で未設定なら受け付けない
-      if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) { console.warn("[LP] GAS_URL未設定のため送信していません", Object.fromEntries(body)); showDone(); return; }
-      msg.style.display = "block"; return;
+      // デモ動作：入力内容はどこにも送らない
+      console.warn("[LP] デモ動作のため送信していません", Object.fromEntries(body));
+      showDone(); downloadPdf(); return;
     }
 
     btn.disabled = true; btn.textContent = "送信中…";
@@ -320,7 +373,7 @@ const CONFIG = {
       // GASはCORSヘッダーを返さないため no-cors で送る（応答は読めないが、届けばシートに記録される）
       await fetch(CONFIG.GAS_URL, { method: "POST", mode: "no-cors", body });
       if (typeof gtag === "function") gtag("event", "generate_lead", { utm_source: utm.utm_source });
-      showDone();
+      showDone(); downloadPdf();
     } catch (err) {
       console.error(err);
       msg.style.display = "block";
